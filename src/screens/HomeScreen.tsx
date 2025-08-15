@@ -9,7 +9,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Appointment } from '../types/appointments';
 import { Doctor } from '../types/doctors';
-import { RootStackParamList } from '../types/navigation'
+import { RootStackParamList } from '../types/navigation';
 import { useFocusEffect } from '@react-navigation/native';
 
 type HomeScreenProps = {
