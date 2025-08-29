@@ -8,7 +8,6 @@ import theme from '../styles/theme';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Appointment } from '../types/appointments';
-import { Doctor } from '../types/doctors';
 import { RootStackParamList } from '../types/navigation';
 import { useFocusEffect } from '@react-navigation/native';
 import { authApiService } from '../services/authApi';
@@ -17,8 +16,6 @@ import { User } from '../types/auth';
 type HomeScreenProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Home'>;
 };
-
-// Médicos agora vêm da API - dados removidos
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
@@ -48,17 +45,17 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
   };
 
   useFocusEffect(
-    React.useCallback(() => {
-      loadAppointments();
-      loadDoctors();
-    }, [])
+      React.useCallback(() => {
+        loadAppointments();
+        loadDoctors();
+      }, [])
   );
 
   const onRefresh = async () => {
     setRefreshing(true);
     await Promise.all([loadAppointments(), loadDoctors()]);
     setRefreshing(false);
-  };
+  }
 
   const getDoctorInfo = (doctorId: string): User | undefined => {
     return doctors.find(doctor => doctor.id === doctorId);
@@ -68,73 +65,73 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     const doctor = getDoctorInfo(item.doctorId);
 
     return (
-      <AppointmentCard>
-        <DoctorImage source={{ uri: doctor?.image || 'https://via.placeholder.com/100' }} />
-        <InfoContainer>
-          <DoctorName>{doctor?.name || 'Médico não encontrado'}</DoctorName>
-          <DoctorSpecialty>
-            {doctor?.role === 'doctor' && 'specialty' in doctor
-              ? doctor.specialty
-              : 'Especialidade não encontrada'}
-          </DoctorSpecialty>
-          <DateTime>{new Date(item.date).toLocaleDateString()} - {item.time}</DateTime>
-          <Description>{item.description}</Description>
-          <Status status={item.status}>
-            {item.status === 'pending' ? 'Pendente' : 'Confirmado'}
-          </Status>
-          <ActionButtons>
-            <ActionButton>
-              <Icon name="edit" type="material" size={20} color={theme.colors.primary} />
-            </ActionButton>
-            <ActionButton>
-              <Icon name="delete" type="material" size={20} color={theme.colors.error} />
-            </ActionButton>
-          </ActionButtons>
-        </InfoContainer>
-      </AppointmentCard>
+        <AppointmentCard>
+          <DoctorImage source={{ uri: doctor?.image || 'https://via.placeholder.com/100' }} />
+          <InfoContainer>
+            <DoctorName>{doctor?.name || 'Médico não encontrado'}</DoctorName>
+            <DoctorSpecialty>
+              {doctor?.role === 'doctor' && 'specialty' in doctor
+                  ? doctor.specialty
+                  : 'Especialidade não encontrada'}
+            </DoctorSpecialty>
+            <DateTime>{new Date(item.date).toLocaleDateString()} - {item.time}</DateTime>
+            <Description>{item.description}</Description>
+            <Status status={item.status}>
+              {item.status === 'pending' ? 'Pendente' : 'Confirmado'}
+            </Status>
+            <ActionButtons>
+              <ActionButton>
+                <Icon name="edit" type="material" size={20} color={theme.colors.primary} />
+              </ActionButton>
+              <ActionButton>
+                <Icon name="delete" type="material" size={20} color={theme.colors.error} />
+              </ActionButton>
+            </ActionButtons>
+          </InfoContainer>
+        </AppointmentCard>
     );
   };
 
   return (
-    <Container>
-      <Header />
-      <TitleContainer>
-        <Title>Minhas Consultas</Title>
-      </TitleContainer>
+      <Container>
+        <Header />
+        <TitleContainer>
+          <Title>Minhas Consultas</Title>
+        </TitleContainer>
 
-      <Content>
-        <Button
-          title="Agendar Nova Consulta"
-          icon={
-            <FontAwesome
-              name="calendar-plus-o"
-              size={20}
-              color="white"
-              style={{ marginRight: 8 }}
-            />
-          }
-          buttonStyle={{
-            backgroundColor: theme.colors.primary,
-            borderRadius: 8,
-            padding: 12,
-            marginBottom: theme.spacing.medium
-          }}
-          onPress={() => navigation.navigate('CreateAppointment')}
-        />
+        <Content>
+          <Button
+              title="Agendar Nova Consulta"
+              icon={
+                <FontAwesome
+                    name="calendar-plus-o"
+                    size={20}
+                    color="white"
+                    style={{ marginRight: 8 }}
+                />
+              }
+              buttonStyle={{
+                backgroundColor: theme.colors.primary,
+                borderRadius: 8,
+                padding: 12,
+                marginBottom: theme.spacing.medium
+              }}
+              onPress={() => navigation.navigate('CreateAppointment')}
+          />
 
-        <AppointmentList
-          data={appointments}
-          keyExtractor={(item: Appointment) => item.id}
-          renderItem={renderAppointment}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-          ListEmptyComponent={
-            <EmptyText>Nenhuma consulta agendada</EmptyText>
-          }
-        />
-      </Content>
-    </Container>
+          <AppointmentList
+              data={appointments}
+              keyExtractor={(item: Appointment) => item.id}
+              renderItem={renderAppointment}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+              ListEmptyComponent={
+                <EmptyText>Nenhuma consulta agendada</EmptyText>
+              }
+          />
+        </Content>
+      </Container>
   );
 };
 

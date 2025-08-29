@@ -92,9 +92,9 @@ const AdminDashboardScreen: React.FC = () => {
 
   // Carrega os dados quando a tela estiver em foco
   useFocusEffect(
-    React.useCallback(() => {
-      loadData();
-    }, [])
+      React.useCallback(() => {
+        loadData();
+      }, [])
   );
 
   const handleUpdateStatus = async (appointmentId: string, newStatus: 'confirmed' | 'cancelled') => {
@@ -117,78 +117,78 @@ const AdminDashboardScreen: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Header />
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Title>Painel Administrativo</Title>
+      <Container>
+        <Header />
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <Title>Painel Administrativo</Title>
 
-        {/* Abas de navegação */}
-        <TabContainer>
-          <TabButton
-            active={activeTab === 'appointments'}
-            onPress={() => setActiveTab('appointments')}
-          >
-            <TabText active={activeTab === 'appointments'}>Consultas</TabText>
-          </TabButton>
-          <TabButton
-            active={activeTab === 'users'}
-            onPress={() => setActiveTab('users')}
-          >
-            <TabText active={activeTab === 'users'}>Usuários</TabText>
-          </TabButton>
-        </TabContainer>
+          {/* Abas de navegação */}
+          <TabContainer>
+            <TabButton
+                active={activeTab === 'appointments'}
+                onPress={() => setActiveTab('appointments')}
+            >
+              <TabText active={activeTab === 'appointments'}>Consultas</TabText>
+            </TabButton>
+            <TabButton
+                active={activeTab === 'users'}
+                onPress={() => setActiveTab('users')}
+            >
+              <TabText active={activeTab === 'users'}>Usuários</TabText>
+            </TabButton>
+          </TabContainer>
 
-        {activeTab === 'appointments' ? (
-          <>
-            <SectionTitle>Últimas Consultas</SectionTitle>
-        {loading ? (
-          <LoadingText>Carregando dados...</LoadingText>
-        ) : appointments.length === 0 ? (
-          <EmptyText>Nenhuma consulta agendada</EmptyText>
-        ) : (
-          appointments.map((appointment) => (
-            <AppointmentCard key={appointment.id}>
-              <ListItem.Content>
-                <ListItem.Title style={styles.doctorName as TextStyle}>
-                  {appointment.doctorName}
-                </ListItem.Title>
-                <ListItem.Subtitle style={styles.specialty as TextStyle}>
-                  {appointment.specialty}
-                </ListItem.Subtitle>
-                <Text style={styles.dateTime as TextStyle}>
-                  {appointment.date} às {appointment.time}
-                </Text>
-                <StatusBadge status={appointment.status}>
-                  <StatusText status={appointment.status}>
-                    {getStatusText(appointment.status)}
-                  </StatusText>
-                </StatusBadge>
-                {appointment.status === 'pending' && (
-                  <ButtonContainer>
-                    <Button
-                      title="Confirmar"
-                      onPress={() => handleUpdateStatus(appointment.id, 'confirmed')}
-                      containerStyle={styles.actionButton as ViewStyle}
-                      buttonStyle={styles.confirmButton}
-                    />
-                    <Button
-                      title="Cancelar"
-                      onPress={() => handleUpdateStatus(appointment.id, 'cancelled')}
-                      containerStyle={styles.actionButton as ViewStyle}
-                      buttonStyle={styles.cancelButton}
-                    />
-                  </ButtonContainer>
+          {activeTab === 'appointments' ? (
+              <>
+                <SectionTitle>Últimas Consultas</SectionTitle>
+                {loading ? (
+                    <LoadingText>Carregando dados...</LoadingText>
+                ) : appointments.length === 0 ? (
+                    <EmptyText>Nenhuma consulta agendada</EmptyText>
+                ) : (
+                    appointments.map((appointment) => (
+                        <AppointmentCard key={appointment.id}>
+                          <ListItem.Content>
+                            <ListItem.Title style={styles.doctorName as TextStyle}>
+                              {appointment.doctorName}
+                            </ListItem.Title>
+                            <ListItem.Subtitle style={styles.specialty as TextStyle}>
+                              {appointment.specialty}
+                            </ListItem.Subtitle>
+                            <Text style={styles.dateTime as TextStyle}>
+                              {appointment.date} às {appointment.time}
+                            </Text>
+                            <StatusBadge status={appointment.status}>
+                              <StatusText status={appointment.status}>
+                                {getStatusText(appointment.status)}
+                              </StatusText>
+                            </StatusBadge>
+                            {appointment.status === 'pending' && (
+                                <ButtonContainer>
+                                  <Button
+                                      title="Confirmar"
+                                      onPress={() => handleUpdateStatus(appointment.id, 'confirmed')}
+                                      containerStyle={styles.actionButton as ViewStyle}
+                                      buttonStyle={styles.confirmButton}
+                                  />
+                                  <Button
+                                      title="Cancelar"
+                                      onPress={() => handleUpdateStatus(appointment.id, 'cancelled')}
+                                      containerStyle={styles.actionButton as ViewStyle}
+                                      buttonStyle={styles.cancelButton}
+                                  />
+                                </ButtonContainer>
+                            )}
+                          </ListItem.Content>
+                        </AppointmentCard>
+                    ))
                 )}
-              </ListItem.Content>
-            </AppointmentCard>
-          ))
-        )}
-          </>
-        ) : (
-          <UserManagement onSignOut={signOut} />
-        )}
-      </ScrollView>
-    </Container>
+              </>
+          ) : (
+              <UserManagement onSignOut={signOut} />
+          )}
+        </ScrollView>
+      </Container>
   );
 };
 
@@ -316,14 +316,14 @@ const TabButton = styled.TouchableOpacity<{ active: boolean }>`
   flex: 1;
   padding: 12px;
   align-items: center;
-  background-color: ${props => props.active ? theme.colors.primary : 'transparent'};
+  background-color: ${(props: { active: any; }) => props.active ? theme.colors.primary : 'transparent'};
   border-radius: 8px;
 `;
 
 const TabText = styled.Text<{ active: boolean }>`
-  color: ${props => props.active ? '#fff' : theme.colors.text};
-  font-weight: ${props => props.active ? 'bold' : 'normal'};
+  color: ${(props: { active: any; }) => props.active ? '#fff' : theme.colors.text};
+  font-weight: ${(props: { active: any; }) => props.active ? 'bold' : 'normal'};
   font-size: 16px;
 `;
 
-export default AdminDashboardScreen; 
+export default AdminDashboardScreen;

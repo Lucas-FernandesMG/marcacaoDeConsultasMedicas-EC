@@ -37,8 +37,6 @@ interface Doctor {
   image: string;
 }
 
-// Médicos agora vêm da API através do AppointmentForm
-
 const CreateAppointmentScreen: React.FC = () => {
   const { user } = useAuth();
   const navigation = useNavigation<CreateAppointmentScreenProps['navigation']>();
@@ -88,8 +86,8 @@ const CreateAppointmentScreen: React.FC = () => {
       id: user.id,
       name: user.name,
       specialty: user.role === 'doctor' && 'specialty' in user
-        ? user.specialty
-        : 'Especialidade não informada',
+          ? user.specialty
+          : 'Especialidade não informada',
       image: user.image
     }));
   };
@@ -137,54 +135,54 @@ const CreateAppointmentScreen: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Header />
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <Title>Agendar Consulta</Title>
+      <Container>
+        <Header />
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <Title>Agendar Consulta</Title>
 
         <Input
-          placeholder="Data (DD/MM/AAAA)"
-          value={date}
-          onChangeText={setDate}
-          containerStyle={styles.input}
-          keyboardType="numeric"
+            placeholder="Data (DD/MM/AAAA)"
+            value={date}
+            onChangeText={setDate}
+            containerStyle={styles.input}
+            keyboardType="numeric"
         />
 
         <SectionTitle>Selecione um Horário</SectionTitle>
         <TimeSlotList
-          onSelectTime={setSelectedTime}
-          selectedTime={selectedTime}
+            onSelectTime={setSelectedTime}
+            selectedTime={selectedTime}
         />
 
         <SectionTitle>Selecione um Médico</SectionTitle>
         {loadingDoctors ? (
-          <ErrorText>Carregando médicos...</ErrorText>
+            <ErrorText>Carregando médicos...</ErrorText>
         ) : (
-          <DoctorList
-            doctors={convertUsersToDoctors(doctors)}
-            onSelectDoctor={setSelectedDoctor}
-            selectedDoctorId={selectedDoctor?.id}
-          />
+            <DoctorList
+                doctors={convertUsersToDoctors(doctors)}
+                onSelectDoctor={setSelectedDoctor}
+                selectedDoctorId={selectedDoctor?.id}
+            />
         )}
 
         {error ? <ErrorText>{error}</ErrorText> : null}
 
         <Button
-          title="Agendar"
-          onPress={handleCreateAppointment}
-          loading={loading}
-          containerStyle={styles.button as ViewStyle}
-          buttonStyle={styles.buttonStyle}
+            title="Agendar"
+            onPress={handleCreateAppointment}
+            loading={loading}
+            containerStyle={styles.button as ViewStyle}
+            buttonStyle={styles.buttonStyle}
         />
 
         <Button
-          title="Cancelar"
-          onPress={() => navigation.goBack()}
-          containerStyle={styles.button as ViewStyle}
-          buttonStyle={styles.cancelButton}
+            title="Cancelar"
+            onPress={() => navigation.goBack()}
+            containerStyle={styles.button as ViewStyle}
+            buttonStyle={styles.cancelButton}
         />
-      </ScrollView>
-    </Container>
+        </ScrollView>
+      </Container>
   );
 };
 

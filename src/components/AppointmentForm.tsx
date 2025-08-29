@@ -33,12 +33,12 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
    const [selectedTime, setSelectedTime] = useState<string>('');
    const [description, setDescription] = useState('');
    const [selectedSpecialty, setSelectedSpecialty] = useState<string>('');
-
+   
    // Estados para dados da API
    const [doctors, setDoctors] = useState<User[]>([]);
    const [specialties, setSpecialties] = useState<Specialty[]>([]);
    const [loading, setLoading] = useState(true);
-
+   
    const timeSlots = generateTimeSlots();
 
    // Carrega especialidades e médicos ao montar o componente
@@ -62,7 +62,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
             specialtiesApiService.getAllSpecialties(),
             authApiService.getAllDoctors(),
          ]);
-
+         
          setSpecialties(specialtiesData);
          setDoctors(doctorsData);
       } catch (error) {
@@ -110,7 +110,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
    const handleDateChange = (text: string) => {
       // Remove todos os caracteres não numéricos
       const numbers = text.replace(/\D/g, '');
-
+      
       // Formata a data enquanto digita
       let formattedDate = '';
       if (numbers.length > 0) {
@@ -166,7 +166,7 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
       <Container>
          <Title>Selecione a Especialidade</Title>
          <SpecialtyContainer>
-            <SpecialtyButton
+            <SpecialtyButton 
                selected={selectedSpecialty === ''}
                onPress={() => setSelectedSpecialty('')}
             >
@@ -199,8 +199,8 @@ const AppointmentForm: React.FC<AppointmentFormProps> = ({ onSubmit }) => {
                   <DoctorInfo>
                      <DoctorName>{doctor.name}</DoctorName>
                      <DoctorSpecialty>
-                        {doctor.role === 'doctor' && 'specialty' in doctor
-                           ? doctor.specialty
+                        {doctor.role === 'doctor' && 'specialty' in doctor 
+                           ? doctor.specialty 
                            : 'Especialidade não informada'}
                      </DoctorSpecialty>
                   </DoctorInfo>
@@ -332,31 +332,31 @@ const TimeSlotsGrid = styled.View`
 `;
 
 const TimeSlotButton = styled(TouchableOpacity)<{ selected: boolean; disabled: boolean }>`
-  background-color: ${(props: { selected: boolean; disabled: boolean }) =>
-    props.disabled
-      ? theme.colors.background
-      : props.selected
-        ? theme.colors.primary
+  background-color: ${(props: { selected: boolean; disabled: boolean }) => 
+    props.disabled 
+      ? theme.colors.background 
+      : props.selected 
+        ? theme.colors.primary 
         : theme.colors.white};
   padding: ${theme.spacing.small}px ${theme.spacing.medium}px;
   border-radius: 8px;
   border-width: 1px;
-  border-color: ${(props: { selected: boolean; disabled: boolean }) =>
-    props.disabled
-      ? theme.colors.background
-      : props.selected
-        ? theme.colors.primary
+  border-color: ${(props: { selected: boolean; disabled: boolean }) => 
+    props.disabled 
+      ? theme.colors.background 
+      : props.selected 
+        ? theme.colors.primary 
         : theme.colors.text};
   opacity: ${(props: { disabled: boolean }) => props.disabled ? 0.5 : 1};
 `;
 
 const TimeSlotText = styled(Text)<{ selected: boolean; disabled: boolean }>`
   font-size: ${theme.typography.body.fontSize}px;
-  color: ${(props: { selected: boolean; disabled: boolean }) =>
-    props.disabled
-      ? theme.colors.text
-      : props.selected
-        ? theme.colors.white
+  color: ${(props: { selected: boolean; disabled: boolean }) => 
+    props.disabled 
+      ? theme.colors.text 
+      : props.selected 
+        ? theme.colors.white 
         : theme.colors.text};
 `;
 
@@ -379,21 +379,21 @@ const SpecialtyContainer = styled.View`
 `;
 
 const SpecialtyButton = styled(TouchableOpacity)<{ selected: boolean }>`
-  background-color: ${(props: { selected: boolean }) =>
+  background-color: ${(props: { selected: boolean }) => 
     props.selected ? theme.colors.primary : theme.colors.white};
   padding: ${theme.spacing.small}px ${theme.spacing.medium}px;
   border-radius: 20px;
   border-width: 1px;
-  border-color: ${(props: { selected: boolean }) =>
+  border-color: ${(props: { selected: boolean }) => 
     props.selected ? theme.colors.primary : theme.colors.border};
   margin-bottom: ${theme.spacing.small}px;
 `;
 
 const SpecialtyText = styled(Text)<{ selected: boolean }>`
   font-size: ${theme.typography.body.fontSize}px;
-  color: ${(props: { selected: boolean }) =>
+  color: ${(props: { selected: boolean }) => 
     props.selected ? theme.colors.white : theme.colors.text};
   text-align: center;
 `;
 
-export default AppointmentForm;
+export default AppointmentForm; 

@@ -1,6 +1,7 @@
 import { apiClient, API_ENDPOINTS } from './api';
 import { User, LoginCredentials, RegisterData, AuthResponse } from '../types/auth';
 
+
 /**
  * Interface para a resposta de login da API
  */
@@ -30,11 +31,11 @@ export const authApiService = {
     try {
       // Faz a requisição de login
       const loginResponse = await apiClient.post<ApiLoginResponse>(
-        API_ENDPOINTS.LOGIN,
-        {
-          email: credentials.email,
-          senha: credentials.password,
-        }
+          API_ENDPOINTS.LOGIN,
+          {
+            email: credentials.email,
+            senha: credentials.password,
+          }
       );
 
       // Define o token no cliente da API
@@ -144,7 +145,7 @@ export const authApiService = {
   async getDoctorsBySpecialty(specialty: string): Promise<User[]> {
     try {
       const doctors = await apiClient.get<ApiUser[]>(
-        `${API_ENDPOINTS.DOCTORS}?especialidade=${encodeURIComponent(specialty)}`
+          `${API_ENDPOINTS.DOCTORS}?especialidade=${encodeURIComponent(specialty)}`
       );
       return doctors.map(this.mapApiUserToUser);
     } catch (error) {

@@ -157,4 +157,4 @@ const StatusText = styled.Text<{ color: string }>`
   font-weight: 500;
 `;
 
-export default AppointmentCard;
+export default AppointmentCard; 

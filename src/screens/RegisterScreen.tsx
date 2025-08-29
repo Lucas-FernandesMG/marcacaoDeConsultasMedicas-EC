@@ -49,72 +49,72 @@ const RegisterScreen: React.FC = () => {
   };
 
   return (
-    <Container>
-      <Title>Cadastro de Usuário</Title>
+      <Container>
+        <Title>Cadastro de Usuário</Title>
 
-      <Input
-        placeholder="Nome completo"
-        value={name}
-        onChangeText={setName}
-        autoCapitalize="words"
-        containerStyle={styles.input}
-      />
+        <Input
+            placeholder="Nome completo"
+            value={name}
+            onChangeText={setName}
+            autoCapitalize="words"
+            containerStyle={styles.input}
+        />
 
-      <Input
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        keyboardType="email-address"
-        containerStyle={styles.input}
-      />
+        <Input
+            placeholder="Email"
+            value={email}
+            onChangeText={setEmail}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            containerStyle={styles.input}
+        />
 
-      <Input
-        placeholder="Senha"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        containerStyle={styles.input}
-      />
+        <Input
+            placeholder="Senha"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            containerStyle={styles.input}
+        />
 
-      <SectionTitle>Tipo de Usuário</SectionTitle>
-      <UserTypeContainer>
-        <UserTypeButton
-          selected={userType === 'PACIENTE'}
-          onPress={() => setUserType('PACIENTE')}
-        >
-          <UserTypeText selected={userType === 'PACIENTE'}>
-            👤 Paciente
-          </UserTypeText>
-        </UserTypeButton>
+        <SectionTitle>Tipo de Usuário</SectionTitle>
+        <UserTypeContainer>
+          <UserTypeButton
+              selected={userType === 'PACIENTE'}
+              onPress={() => setUserType('PACIENTE')}
+          >
+            <UserTypeText selected={userType === 'PACIENTE'}>
+              👤 Paciente
+            </UserTypeText>
+          </UserTypeButton>
 
-        <UserTypeButton
-          selected={userType === 'ADMIN'}
-          onPress={() => setUserType('ADMIN')}
-        >
-          <UserTypeText selected={userType === 'ADMIN'}>
-            🔧 Administrador
-          </UserTypeText>
-        </UserTypeButton>
-      </UserTypeContainer>
+          <UserTypeButton
+              selected={userType === 'ADMIN'}
+              onPress={() => setUserType('ADMIN')}
+          >
+            <UserTypeText selected={userType === 'ADMIN'}>
+              🔧 Administrador
+            </UserTypeText>
+          </UserTypeButton>
+        </UserTypeContainer>
 
-      {error ? <ErrorText>{error}</ErrorText> : null}
+        {error ? <ErrorText>{error}</ErrorText> : null}
 
-      <Button
-        title="Cadastrar"
-        onPress={handleRegister}
-        loading={loading}
-        containerStyle={styles.button as ViewStyle}
-        buttonStyle={styles.buttonStyle}
-      />
+        <Button
+            title="Cadastrar"
+            onPress={handleRegister}
+            loading={loading}
+            containerStyle={styles.button as ViewStyle}
+            buttonStyle={styles.buttonStyle}
+        />
 
-      <Button
-        title="Voltar para Login"
-        onPress={() => navigation.navigate('Login')}
-        containerStyle={styles.backButton as ViewStyle}
-        buttonStyle={styles.backButtonStyle}
-      />
-    </Container>
+        <Button
+            title="Voltar para Login"
+            onPress={() => navigation.navigate('Login')}
+            containerStyle={styles.backButton as ViewStyle}
+            buttonStyle={styles.backButtonStyle}
+        />
+      </Container>
   );
 };
 
@@ -191,4 +191,4 @@ const UserTypeText = styled.Text<{ selected: boolean }>`
   font-size: 14px;
 `;
 
-export default RegisterScreen; 
+export default RegisterScreen;
